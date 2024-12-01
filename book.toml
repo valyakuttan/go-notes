@@ -1,0 +1,6 @@
+[book]
+authors = ["valyakuttan"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Go Notes"
