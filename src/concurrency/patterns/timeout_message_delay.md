@@ -9,9 +9,9 @@ After the interval, the channel delivers the current time, once.
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+    "fmt"
+    "math/rand"
+    "time"
 )
 
 func main() {

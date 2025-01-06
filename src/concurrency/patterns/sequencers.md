@@ -33,18 +33,16 @@ func boring(msg string) <-chan Message {
     return c
 }
 
-func fanIn(input1, input2 <-chan Message) <-chan Message {
+func fanIn(inputs ...<-chan Message) <-chan Message {
     c := make(chan Message)
-    go func() {
-        for {
-            c <- <-input1
-        }
-    }()
-    go func() {
-        for {
-            c <- <-input2
-        }
-    }()
+    for i := range inputs {
+        input := inputs[i] // New instance of 'input' for each loop.
+        go func() {
+            for {
+                c <- <-input
+            }
+        }()
+    }
     return c
 }
 

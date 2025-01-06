@@ -6,9 +6,9 @@ the timer once, outside the loop.
 ```go
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+    "fmt"
+    "math/rand"
+    "time"
 )
 
 func main() {
