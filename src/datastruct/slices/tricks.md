@@ -3,18 +3,21 @@
 ## Make Copy Of A Slice
 
 ```go
+    b := make([]int, len(a))
+    copy(b, a)
+```
 
-b := make([]T, len(a))
-copy(b, a)
+## Prepend An Item To A Slice
 
+```go
+    xs := []int{2, 3, 4}
+    xs = append([]int{1}, xs...)
 ```
 
 ## Cut Part Of A Slice
 
 ```go
-
-a = append(a[:i], a[j:]...) // a[i:j-1] removed from a
-
+    a = append(a[:i], a[j:]...) // a[i:j-1] removed from a
 ```
 
 ## Reverse A Slice
@@ -22,25 +25,21 @@ a = append(a[:i], a[j:]...) // a[i:j-1] removed from a
 To replace the contents of a slice with the same elements but in reverse order:
 
 ```go
-
-for i := len(a)/2-1; i >= 0; i-- {
-    opp := len(a)-1-i
-    a[i], a[opp] = a[opp], a[i]
-}
-
+    for i := len(a)/2-1; i >= 0; i-- {
+        opp := len(a)-1-i
+        a[i], a[opp] = a[opp], a[i]
+    }
 ```
 
 ## Filter Contents Of A Slice
 
 ```go
-
-n := 0
-for _, x := range a {
-    if keep(x) {
-        a[n] = x
-        n++
+    n := 0
+    for _, x := range a {
+        if keep(x) {
+            a[n] = x
+            n++
+        }
     }
-}
-a = a[:n]
-
+    a = a[:n]
 ```

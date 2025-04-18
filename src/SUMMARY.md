@@ -8,6 +8,8 @@
 
   - [Enumerated Constants](./basics/enum.md)
 
+- [nil values](./basics/nil_values.md)
+
 - [Functions]()
 
   - [Builtin Functions](./basics/builtin_functions.md)
@@ -74,15 +76,31 @@
 
   - [Interface Embedding](./userdefined/composition/interface_embed.md)
 
-# V. Errors
+# IV. Errors
 
 - [Introduction](./errors/intro.md)
 
 - [Package errors](./errors/package.md)
 
-# VI. Generics
+# V. Generics
 
 - [Basics]()
+
+# VI. Standard Types And Utility Functions
+
+- [IO Interfaces]()
+
+  - [Reader]()
+
+  - [Writer]()
+
+  - [MultiReader]()
+
+  - [MultiWriter]()
+
+  - [TeeReader]()
+
+  - [LimitReader]()
 
 # VII. Concurrency
 
@@ -148,7 +166,7 @@
 
   - [Pipelines](./concurrency/advanced/pipeline.md)
 
-  - [Bounded Concurrency]()
+  - [Bounded Concurrency](./concurrency/advanced/bounded.md)
 
   - [Context](./concurrency/advanced/context.md)
 
@@ -224,7 +242,7 @@
 
       - [Code Walk](./concurrency/examples/feed_reader/improvements/improved.md)
 
-# VII. Testing
+# VIII. Testing
 
 - [Unit Tests]()
 
@@ -241,3 +259,7 @@
   - [Introduction](./testing/benchmark/intro.md)
 
   - [Table Driven](./testing/benchmark/tabledriven.md)
+
+# IX. Profiling
+
+- [Basics]()

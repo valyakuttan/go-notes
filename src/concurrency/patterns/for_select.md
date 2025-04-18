@@ -15,7 +15,7 @@
         
         case y, not_closed := <- otherchan:
 
-            //... do stuff with x
+            //... do stuff with y
 
             //... check not_closed to see if the
             //... channel is closed

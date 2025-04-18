@@ -1,38 +1,56 @@
-# Bounded Concurrency using Semaphore
+# Bounded Concurrency
 
-A counting semaphore helps to restricts the number of concurrently executing
-threads. Buffered channels make it easy to create counting semaphore.
+A concurrent implementation with unbounded number of goroutines may hit
+by resource limits, like allocating more memory than available on a machine.
 
 ```go
-
 // ...
 
-// We want information about all cities, a single failure
-// make the result unusable
-func Cities(cities ...string) ([]*Info, error) {
-    var g errgroup.Group
-    var mu sync.Mutex
-    res := make([]*Info, len(cities)) // res[i] corresponds to cities[i]
-    sem := make(chan struct{}, 10)
-    for i, city := range cities {
-        i, city := i, city // create locals for closure below
-        sem <- struct{}{}
-        g.Go(func() error {
-            info, err := City(city)
-            mu.Lock()
-            res[i] = info
-            mu.Unlock()
-            <-sem
-            return err
-        })
+func run(in <-chan int) <-chan int {
+    for data := range in {
+        go func() {
+            out <- process(data)
+        }()
     }
-    if err := g.Wait(); err != nil {
-        return nil, err
-    }
-    return res, nil
 }
 
+// ...
+```
 
+We can limit the resource use by creating a fixed number of goroutines.
+
+```go
 // ...
 
+func run(done <-chan struct{}, in <-chan int) <-chan int {
+    numWorkers := 4
+    out := make(chan int)
+    var wg sync.WaitGroup
+    wg.Add(numWorkers)
+    for range numWorkers {
+        go worker(done, in, out, &wg)
+    }
+
+    go func() {
+        wg.Wait()
+        close(out)
+    }()
+
+    return out
+}
+
+func worker(done <-chan struct{}, in <-chan int, out chan<- int, wg *sync.WaitGroup) {
+    defer wg.Done()
+
+    for {
+        select {
+        case data := <-in:
+            out <- process(data)
+        case <-done:
+            return
+        }
+    }
+}
+
+// ...
 ```
